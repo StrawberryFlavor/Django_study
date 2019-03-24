@@ -15,8 +15,8 @@ Django的学习记录
 
 ### 项目工程文件
 
-- setting.py:项目的配置文件
-- urls.py:进行url路由的配置
+- setting.py：项目的配置文件
+- urls.py：进行url路由的配置
 - wsgi.py：服务器和django交互的入口
 - manage.py：项目的管理文件
 
