@@ -6,10 +6,9 @@ Django的学习记录
 ## Django 的第一天学习记录
 
 **mvc的核心思想，解耦，即**：
-
-​	M：Model模型，和数据库进行交互
-​	V: View,视图，产生html页面
-​	C: Controller,控制器,接受请求，进行处理，与M和V进行交互，返回应答
+  - M：Model模型，和数据库进行交互
+  - V: View,视图，产生html页面
+  -	C: Controller,控制器,接受请求，进行处理，与M和V进行交互，返回应答
 
 **Django，MVT,遵循MVC分工思想快速开发和DRY原则，Do not repeat yourself，不要让自己去重复一些工作**
 
