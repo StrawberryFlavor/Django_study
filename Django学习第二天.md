@@ -1,113 +1,56 @@
-### Django 的第二天学习记录
+### Django 的第三天学习记录
 
 
 
-通过执行`python manage.py shell`可以进入 shell 终端
+模板不仅仅是一个 html 文件
 
 
 
-#### Django 的后台管理：
+#### 模板文件的使用
 
-**本地化**
+- 在项目中创建模板文件夹，对应的应用模版文件夹
 
-- 修改 settings.py 文件
-
-  ```python
-  LANGUAGE_CODE = 'zh-hans' # 修改为使用中文
-  ```
+- 配置模板目录
 
   ```python
-  TIME_ZONE = 'Asia/Shanghai' #使用中国时间
+  TEMPLATES = [
+      {
+          'BACKEND': 'django.template.backends.django.DjangoTemplates',
+          'DIRS': [os.path.join(BASE_DIR,'templates')], # 路径拼接
+          'APP_DIRS': True,
+          'OPTIONS': {
+              'context_processors': [
+                  'django.template.context_processors.debug',
+                  'django.template.context_processors.request',
+                  'django.contrib.auth.context_processors.auth',
+                  'django.contrib.messages.context_processors.messages',
+              ],
+          },
+      },
+  ]
   ```
 
-- 创建管理员
+- 使用模板文件
 
-  ```shell
-  python manage.py createsuperuser
-  ```
+  - 加载模板文件：去模板目录下面获取 html 文件的内容 ，得到一个模板对象
+  - 定义模板上下文：向模板文件传递数据
+  - 模板渲染：得到一个标准的 html 内容
 
-- 注册模型类
-
-  在应用下的 admin.py 中注册模型类，告诉django框架根据注册的模型类来生成对应表管理页面
-
-  例：
-
-  ```python
-  from django.contrib import admin
-  from wind_test.models import BookInfo,HeroInfo
-  # Register your models here.
   
-  admin.site.register(BookInfo)
-  admin.site.register(HeroInfo)
-  ```
 
-- 自定义管理页面
-
-  自定义模型管理类。模型管理类就是告诉 django 在生成的管理页面上显示哪些内容
-
-  例：
-
-  ```python
-  class BookInfoAdmin(admin.ModelAdmin):
-      """
-      图书模型管理类
-      """
-      list_display = ['id','btille','bdata']
   
-  class HeroInfoAdmin(admin.ModelAdmin):
-      """
-      英雄模型类管理类
-      """
-      list_display = ['id','heroname','herogender','herocomment','herobook']
+
   
-  admin.site.register(BookInfo,BookInfoAdmin)
-  admin.site.register(HeroInfo,HeroInfoAdmin)
-  ```
 
+  #### 给模版文件传递数据
 
+  模版变量使用：{{ 模版变量名 }}
 
-### 视图函数的使用
+  模版代码段：{% 代码段%}
 
-#### 定义试图函数
+  for 循环：
 
-视图函数定义在 views.py 中
+  {% for i in list%}
 
-例：
+  {% endfor%}
 
-```python
-from django.shortcuts import render
-from django.http import HttpResponse
-# Create your views here.
-
-def index (request):
-    # 必须要有一个参数 request ，进行处理之后，需要返回一个 HttpRequest 的类的对象
-    # 定义视图函数，HttpRequest
-    # http://127.0.0.1:8080/index
-    # 进行url配置，建立url地址和视图的对应关系
-  return HttpResponse("测试学习")
-
-def myinfo(request):
-    return HttpResponse("关于我")
-```
-
-#### 进行 url 的配置
-
-建立 url 地址和视图的对应关系
-
-url 配置的目的是让建立 url 和视图函数的对应关系，url 配置项定义在 urlpatterns 列表中，每一个配置项都调用url 函数
-
-配置 url 时，url(正则表达式，include(应用中的 urls 文件))
-
-例：
-
-```python
-urlpatterns = [
-    url(r'^admin/', include(admin.site.urls)), # 配置项目
-    url(r'^',include('wind_test.urls')),
-
-]
-```
-
-#### url 匹配的过程
-
-在项目的 urls.py 文件中包含具体应用的 urls.py 文件，应用的 urls.py 文件中写 url 和视图函数的对应关系
