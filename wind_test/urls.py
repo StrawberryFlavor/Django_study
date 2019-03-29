@@ -6,5 +6,6 @@ urlpatterns = [
     url(r'^index',views.index),# 建立/index和视图index之间的关系
     url(r'^myinfo',views.myinfo),
     url(r'^books',views.show_books),
-    url(r'^book/(\d+)$',views.detail)
+    url(r'^book/(\d+)$',views.detail),
+
 ]
