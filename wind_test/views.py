@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader,RequestContext
-
+from wind_test.models import BookInfo
 # Create your views here.
 
 def my_render(temp_path,request,context_dict={}):
@@ -33,6 +33,27 @@ def index (request):
     index_dict ={'content':'hello word','list':list(range(1,100))}
     return render(request,'wind_test/index.html',index_dict)
 
+
+def show_books(request):
+    """
+    定义books的视图函数
+
+    """
+    # 通过models查找图书表中的数据
+    books = BookInfo.objects.all()
+    show_books_dict ={'books':books}
+    return render(request,'wind_test/show_books.html',show_books_dict)
+
+def detail(request,bid):
+    """
+    查询图书关联的英雄信息
+    """
+    # 根据id查询图书信息
+    books = BookInfo.objects.get(id=bid)
+    # 查询和book关联的英雄信息
+    heros = books.heroinfo_set.all()
+    detail_book_dict = {'books':books,'heros':heros}
+    return render(request,'wind_test/detail.html',detail_book_dict)
 
 def myinfo(request):
     return HttpResponse("关于我")

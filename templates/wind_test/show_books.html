@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>显示图书信息：</title>
+</head>
+<body>
+图书的信息如下
+<ul>
+    {% for book in books %}
+        <li><a href="/book/{{ book.id }}">{{ book.btille }}</a></li>
+    {% endfor %}
+</ul>
+</body>
+</html>
