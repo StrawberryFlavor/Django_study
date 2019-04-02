@@ -19,7 +19,7 @@
 
 - Django 的环境搭建：`pip install Django==1.8.16`，本次学习指定了1.8.16的版本
 - 创建一个 django 的工程：`django-admin startproject $项目名称`
-- 创建一个 app 应用：`python manage.py startapp $应用名称`
+- 创建一个 app 应用：`python manage.py startapp $应用名称`，并在`settings`中注册应用
 - 运行一个应用：`python manage.py runserver`
 - 模型类生成表，通过`python manage.py make makemigrations`生产迁移文件，产生在`migrations`文件夹下，再执行`python manage.py migrate`执行迁移生成表
 
